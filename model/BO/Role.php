@@ -1,8 +1,9 @@
 <?php 
-class Role {
+class Role extends Actor {
     private $idActor, $idMovie, $character, $idRole, $test;
 
-    public function __construct(int $idActor, int $idMovie, string $character, int $idRole, int $test) {
+    public function __construct(string $character, string $name, string $surname, int $idActor = null, int $idMovie = null, int $idRole = null, int $test = null) {
+        parent::__construct($name, $surname);
         $this->getIdActor($idActor);
         $this->getIdMovie($idMovie);
         $this->getCharacter($character);
