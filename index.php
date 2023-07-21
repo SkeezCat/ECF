@@ -3,7 +3,7 @@
 // Initialisation de l'environnement
 require './config/config.init.php';
 
-// Assemblage de la page web avec les différents constructeurs
+// Assemblage de la page web avec les différents controllers
 require _CTRL_ . 'header.php';
 
 if (isset($_GET['action'])) {
