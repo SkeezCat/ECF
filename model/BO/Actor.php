@@ -1,26 +1,26 @@
 <?php
 class Actor {
-    private $idActor, $name, $surname;
+    private $actorId, $name, $surname;
 
-    public function __construct(string $name, string $surname, int $idActor = null) {
-        $this->setIdActor($idActor);
+    public function __construct(string $name, string $surname, int $actorId = null) {
+        $this->setActorId($actorId);
         $this->setName($name);
         $this->setSurname($surname);
     }
 
-    public function getIdActor() {
-        return $this->idActor;
+    public function getActorId() {
+        return $this->actorId;
     }
     
-    public function setIdActor(int $idActor) {
-        $this->idActor = $idActor;
+    public function setActorId($actorId) {
+        $this->actorId = $actorId;
     }
     
     public function getName() {
         return $this->name;
     }
     
-    public function setName(string $name) {
+    public function setName($name) {
         $this->name = $name;
     }
     
@@ -28,7 +28,7 @@ class Actor {
         return $this->surname;
     }
     
-    public function setSurname(string $surname) {
+    public function setSurname($surname) {
         $this->surname = $surname;
     }
 }

@@ -9,7 +9,7 @@ class MoviesDAO extends Dao {
         $movies = array();
 
         while ($data = $query->fetch()) {
-            $movies[] = new Movie($data['idFilm'], $data['titre'], $data['realisateur'], $data['affiche'], $data['annee']);
+            $movies[] = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee'], $data['idFilm']);
         }
 
         return $movies;
@@ -27,18 +27,21 @@ class MoviesDAO extends Dao {
         $query = 'INSERT INTO films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
         $add = $this->BDD->prepare($query);
 
-        return $add->execute($values);
+        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
     // Ajoute un rôle
-    public function addRole($data, $idMovie) {        
+    public function addRole($data) {        
         $values = [
-            'idActor' => $ActorsDAO->getA, // Vérifier l'existence de l'acteur dans la bdd, ajout le cas échéant
-            'idMovie' => $idMovie,
-            'character' => $data->getCharacter(),
-            'name' => $data->getName(),
-            'surname' => $data->getSurname()
+            'actorId' => $data->getActorId(),
+            'movieId' => $data->getMovieId(),
+            'character' => $data->getCharacter()
         ];
+
+        $query = 'INSERT INTO roles (idActeur, idFilm, personnage) VALUES (:actorId, :movieId, :character)';
+        $add = $this->BDD->prepare($query);
+
+        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
     public function getOne($id) {

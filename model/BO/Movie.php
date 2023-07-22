@@ -1,10 +1,10 @@
 <?php
 class Movie {
-    private $idMovie, $title, $director, $poster, $year;
+    private $movieId, $title, $director, $poster, $year;
     private $roles = array();
 
-    public function __construct(string $title, string $director, string $poster, int $year, $roles = null, int $idMovie = null) {
-        $this->setIdMovie($idMovie);
+    public function __construct(string $title, string $director, string $poster, int $year, int $movieId = null, $roles = null) {
+        $this->setMovieId($movieId);
         $this->setTitle($title);
         $this->setDirector($director);
         $this->setPoster($poster);
@@ -12,12 +12,12 @@ class Movie {
         $this->setRoles($roles);
     }
 
-    public function getIdMovie() {
-        return $this->idMovie;
+    public function getMovieId() {
+        return $this->movieId;
     }
 
-    public function setIdMovie($idMovie) {
-        $this->idMovie = $idMovie;
+    public function setMovieId($movieId) {
+        $this->movieId = $movieId;
     }
 
     public function getTitle() {
