@@ -27,4 +27,9 @@ class SPDO
     {
         return $this->PDOInstance->prepare($query);
     }
+
+    public function getLastId() // Test
+    {
+        return $this->PDOInstance->lastInsertId();
+    }
 }

@@ -1,29 +1,21 @@
 <?php 
-class Role {
-    private $idActor, $idMovie, $character, $idRole, $test;
+class Role extends Actor {
+    private $movieId, $character, $roleId, $test;
 
-    public function __construct(int $idActor, int $idMovie, string $character, int $idRole, int $test) {
-        $this->getIdActor($idActor);
-        $this->getIdMovie($idMovie);
+    public function __construct(string $name, string $surname, int $actorId = null, string $character, int $movieId = null, int $roleId = null, int $test = null) {
+        parent::__construct($name, $surname, $actorId);
         $this->getCharacter($character);
-        $this->getIdRole($idRole);
+        $this->getMovieId($movieId);
+        $this->getroleId($roleId);
         $this->getTest($test);
     }
 
-    public function getIdActor() {
-        return $this->idActor;
+    public function getMovieId() {
+        return $this->movieId;
     }
 
-    public function setIdActor($idActor) {
-        $this->idActor = $idActor;
-    }
-
-    public function getIdMovie() {
-        return $this->idMovie;
-    }
-
-    public function setIdMovie($idMovie) {
-        $this->idMovie = $idMovie;
+    public function setMovieId($movieId) {
+        $this->movieId = $movieId;
     }
 
     public function getCharacter() {
@@ -34,12 +26,12 @@ class Role {
         $this->character = $character;
     }
 
-    public function getIdRole() {
-        return $this->idRole;
+    public function getRoleId() {
+        return $this->roleId;
     }
 
-    public function setIdRole($idRole) {
-        $this->idRole = $idRole;
+    public function setRoleId($roleId) {
+        $this->roleId = $roleId;
     }
 
     public function getTest() {
