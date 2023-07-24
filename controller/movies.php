@@ -4,7 +4,7 @@
 $moviesDAO = new MoviesDAO();
 $movies = $moviesDAO->getAll();
 
-$search;
+$search = "";
 
 // Récupère le résultat de la recherche depuis l'URL
 $queryResult = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
@@ -18,4 +18,5 @@ echo $twig->render('movies.html.twig', [
     'movies' => $movies,
     'search' => $search
 ]);
+
 ?>
