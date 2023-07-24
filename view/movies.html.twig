@@ -1,1 +1,36 @@
 {# Carrousel contenant la liste des films #}
+<h1 class="text-center">
+	La présentation de tout nos films</h1>
+<div class="container   ">
+
+
+	<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
+		<div class="carousel-inner justify-content-around  ">
+			<div class="container row">
+				{% for item in movies %}
+
+					<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
+						<div class="container d-flex justify-content-around ">
+							<div class="container">
+								<img src="{{ item.getPoster}}" class="col-5 w-20 rounded  " alt="poster de film">
+							</div>
+							<div class="col-md-4 ms-auto">
+								<h3>
+									{{item.getMovieId}}-
+									{{item.getTitle}}</h3>
+								<p>
+									Réalisé en
+									{{item.getYear}}
+									par
+									{{item.getDirector}}
+								</p>
+
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	</div>
+</div>
