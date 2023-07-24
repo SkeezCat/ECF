@@ -1,6 +1,6 @@
 <?php
 class Actor {
-    private $actorId, $name, $surname;
+    private $name, $surname, $actorId;
 
     public function __construct(string $name, string $surname, int $actorId = null) {
         $this->setActorId($actorId);
@@ -30,6 +30,11 @@ class Actor {
     
     public function setSurname($surname) {
         $this->surname = $surname;
+    }
+
+    public function __toString() {
+        $format = '%s : %s %s';
+        return sprintf($format, $this->getActorId(), $this->getName(), $this->getSurname());    
     }
 }
 ?>
