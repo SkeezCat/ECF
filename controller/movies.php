@@ -4,6 +4,8 @@
 $moviesDAO = new MoviesDAO();
 $movies = $moviesDAO->getAll();
 
+// var_dump($movies->get)
+
 // Affichage du template Movies
 echo $twig->render('movies.html.twig', [
     'movies' => $movies

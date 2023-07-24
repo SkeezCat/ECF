@@ -1,22 +1,36 @@
 {# Carrousel contenant la liste des films #}
+<h1 class="text-center">
+	La présentation de tout nos films</h1>
+<div class="container   ">
 
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-	<div
-		class="carousel-inner">
-		{# {% for item in  %} #}
-		<div class="carousel-item ">
-			<img src="https://www.detentejardin.com/sites/art-de-vivre/files/Import/www.iconojardin.fr-dja_plantes_interieur.jpg" class="d-block w-100" alt="plante essai">
+
+	<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
+		<div class="carousel-inner justify-content-around  ">
+			<div class="container row">
+				{% for item in movies %}
+
+					<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
+						<div class="container d-flex justify-content-around ">
+							<div class="container">
+								<img src="{{ item.getPoster}}" class="col-5 w-20 rounded  " alt="poster de film">
+							</div>
+							<div class="col-md-4 ms-auto">
+								<h3>
+									{{item.getMovieId}}-
+									{{item.getTitle}}</h3>
+								<p>
+									Réalisé en
+									{{item.getYear}}
+									par
+									{{item.getDirector}}
+								</p>
+
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
 		</div>
-		{# {% endfor %} #}
-
-
 	</div>
-	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Next</span>
-	</button>
 </div>
