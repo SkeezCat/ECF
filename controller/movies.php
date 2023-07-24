@@ -10,7 +10,7 @@ $search = "";
 $queryResult = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
 if ($queryResult != null) {
-    $search = explode($queryResult)[1];
+    $search = explode('=', $queryResult)[1];
 }
 
 // Affichage du template Movies
