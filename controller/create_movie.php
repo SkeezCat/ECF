@@ -1,5 +1,6 @@
 <?php
 $moviesDAO = new MoviesDAO();
+$rolesDAO = new RolesDAO();
 $actorsDAO = new ActorsDAO();
 
 $movie;
@@ -25,7 +26,7 @@ if (isset($_POST['title'])) {
         $roles[$i] = new Role($_POST['character' . $i + 1], $movieId, $actorId);
 
         // Ajoute le rôle dans la base de données
-        $moviesDAO->addRole($roles[$i]);
+        $rolesDAO->add($roles[$i]);
     }
 }
 
