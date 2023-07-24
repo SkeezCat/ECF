@@ -1,36 +1,36 @@
 {# Formulaire de création de film #}
-<form class="d-flex flex-column col-8 offset-2 gap-3 pt-5" action="movies" method="post">
+<form class="d-flex flex-column col-8 offset-2 gap-3 pt-5" action="" method="post">
     <div class="d-flex justify-content-between gap-2">
         <div class="d-flex flex-column flex-fill">
             <label for="title">Titre</label>
-            <input class="form-control" type="text" name="title">
+            <input class="form-control" type="text" name="title" id="title" required>
         </div>
         <div class="d-flex flex-column flex-fill">
             <label for="year">Année</label>
-            <input class="form-control" type="number" name="year">
+            <input class="form-control" type="number" name="year" id="year" required>
         </div>
     </div>
     <label for="poster">Affiche</label>
-    <input class="form-control" type="text" name="poster">
+    <input class="form-control" type="text" name="poster" id="poster" required>
     <label for="director">Réalisateur</label>
-    <input class="form-control" type="text" name="director">
+    <input class="form-control" type="text" name="director" id="director" required>
     <div>
         Rôle(s)
     </div>
     <div class="d-flex justify-content-between gap-2">
-        <input class="form-control d-flex flex-fill" type="text" name="character1" placeholder="Personnage">
-        <input class="form-control d-flex flex-fill" type="text" name="name1" placeholder="Nom">
-        <input class="form-control d-flex flex-fill" type="text" name="surname1" placeholder="Prénom">
+        <input class="form-control d-flex flex-fill" type="text" name="character1" placeholder="Personnage" required>
+        <input class="form-control d-flex flex-fill" type="text" name="name1" placeholder="Nom" required>
+        <input class="form-control d-flex flex-fill" type="text" name="surname1" placeholder="Prénom" required>
     </div>
     <div class="d-flex justify-content-between gap-2">
-        <input class="form-control d-flex flex-fill" type="text" name="character2" placeholder="Personnage">
-        <input class="form-control d-flex flex-fill" type="text" name="name2" placeholder="Nom">
-        <input class="form-control d-flex flex-fill" type="text" name="surname2" placeholder="Prénom">
+        <input class="form-control d-flex flex-fill" type="text" name="character2" placeholder="Personnage" required>
+        <input class="form-control d-flex flex-fill" type="text" name="name2" placeholder="Nom" required>
+        <input class="form-control d-flex flex-fill" type="text" name="surname2" placeholder="Prénom" required>
     </div>
     <div class="d-flex justify-content-between gap-2">
-        <input class="form-control d-flex flex-fill" type="text" name="character3" placeholder="Personnage">
-        <input class="form-control d-flex flex-fill" type="text" name="name3" placeholder="Nom">
-        <input class="form-control d-flex flex-fill" type="text" name="surname3" placeholder="Prénom">
+        <input class="form-control d-flex flex-fill" type="text" name="character3" placeholder="Personnage" required>
+        <input class="form-control d-flex flex-fill" type="text" name="name3" placeholder="Nom" required>
+        <input class="form-control d-flex flex-fill" type="text" name="surname3" placeholder="Prénom" required>
     </div>
     <div class="d-flex justify-content-center">
         <input class="btn btn-primary" type="submit" value="Créer">

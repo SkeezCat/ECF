@@ -1,11 +1,10 @@
 <?php
 $moviesDAO = new MoviesDAO();
+$rolesDAO = new RolesDAO();
 $actorsDAO = new ActorsDAO();
 
 $movie;
 $roles = Array('','','');
-
-$done = false;
 
 if (isset($_POST['title'])) {
 
@@ -24,18 +23,11 @@ if (isset($_POST['title'])) {
         }
 
         // Récupère les données du rôle du formulaire et ajoute le rôle dans la base de données
-        $roles[$i] = new Role($_POST['name' . ($i + 1)], $_POST['surname' . ($i + 1)], $actorId, $_POST['character'. ($i + 1)], $movieId);
-        $roles[$i]->setCharacter($_POST['character' . ($i + 1)]);
-        $roles[$i]->setMovieId($movieId);
-        $roles[$i]->setActorId($actorId);
-
-        // TODO : Comprendre pourquoi certains paramètres retournent null dans la classe Role (et éviter les 3 lignes redondantes ci-dessus)
+        $roles[$i] = new Role($_POST['character' . $i + 1], $movieId, $actorId);
 
         // Ajoute le rôle dans la base de données
-        $moviesDAO->addRole($roles[$i]);
+        $rolesDAO->add($roles[$i]);
     }
-
-    $done = true;
 }
 
 // Affichage du template Create_Movie

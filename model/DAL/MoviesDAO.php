@@ -30,20 +30,6 @@ class MoviesDAO extends Dao {
         return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
-    // Ajoute un rôle
-    public function addRole($data) {        
-        $values = [
-            'actorId' => $data->getActorId(),
-            'movieId' => $data->getMovieId(),
-            'character' => $data->getCharacter()
-        ];
-
-        $query = 'INSERT INTO roles (idActeur, idFilm, personnage) VALUES (:actorId, :movieId, :character)';
-        $add = $this->BDD->prepare($query);
-
-        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
-    }
-
     public function getOne($id) {
     
     }
