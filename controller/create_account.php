@@ -12,7 +12,12 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
         } elseif(empty($_POST["password"])){
             $message = "Le champs Password est vide.";
         
-    } else {}
+    } elseif(($_POST["password"])!==($_POST["password2"])){
+        $message = "Les deux Passwords doivent être identiques.";
+    
+} else {
+    $message = "Votre compte a bien été créé."
+}
 
 
 echo $twig->render('create_account.html.twig', [
