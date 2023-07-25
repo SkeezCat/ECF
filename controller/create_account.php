@@ -1,4 +1,5 @@
 <?php 
+$message = "";
 
 // Affichage du template Create_Account
 if (isset($_POST["username"]) && isset($_POST["password"])){
@@ -11,11 +12,11 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
         } elseif(empty($_POST["password"])){
             $message = "Le champs Password est vide.";
         
-    } else {
-        
-    }
-echo $twig->render('create_account.html.twig', [
+    } else {}
 
+
+echo $twig->render('create_account.html.twig', [
+    'message' => $message
 ]);
 
 ?>
