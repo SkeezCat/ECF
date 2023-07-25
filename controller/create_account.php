@@ -16,7 +16,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
         $message = "Les deux Passwords doivent être identiques.";
     
 } else {
-    $message = "Votre compte a bien été créé."
+    $message = "Votre compte a bien été créé.";
 }
 
 
