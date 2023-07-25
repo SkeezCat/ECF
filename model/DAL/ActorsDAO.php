@@ -3,7 +3,7 @@
 class ActorsDAO extends Dao {
 
     // Récupère tous les acteurs
-    public function getAll()
+    public function getAll($search)
     {
         $query = $this->BDD->prepare("SELECT * FROM acteurs");
         $query->execute();

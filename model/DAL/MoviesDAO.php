@@ -3,8 +3,8 @@
 class MoviesDAO extends Dao {
 
     // Récupère tous les films de la base de données
-    public function getAll() {
-        $query = $this->BDD->prepare("SELECT * FROM films");
+    public function getAll($search) {
+        $query = $this->BDD->prepare("SELECT * FROM films WHERE titre LIKE '%$search%'");
         $query->execute();
         $movies = array();
 
