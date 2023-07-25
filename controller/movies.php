@@ -4,19 +4,26 @@
 $moviesDAO = new MoviesDAO();
 $movies = $moviesDAO->getAll();
 
-$search = "";
-
 // Récupère le résultat de la recherche depuis l'URL
-$queryResult = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+$urlQuery = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
-if ($queryResult != null) {
-    $search = explode('=', $queryResult)[1];
+if ($urlQuery != null) {
+    $search = explode('=', $urlQuery)[1];
+    $result = Array();
+
+    // Sélectionne les films à afficher en fonction de la recherche
+    foreach ($movies as $key => $value) {
+        if (str_contains(strtolower($value->getTitle()), strtolower($search))) {
+            array_push($result, $value);
+        }
+    }
+
+    $movies = $result;
 }
 
 // Affichage du template Movies
 echo $twig->render('movies.html.twig', [
     'movies' => $movies,
-    'search' => $search
 ]);
 
 ?>
