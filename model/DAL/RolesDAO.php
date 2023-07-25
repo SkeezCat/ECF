@@ -3,7 +3,7 @@
 class RolesDAO extends Dao {
 
     // Récupère tous les films de la base de données
-    public function getAll() {
+    public function getAll($search) {
         $query = $this->BDD->prepare("SELECT * FROM roles");
         $query->execute();
         $roles = array();
