@@ -7,6 +7,9 @@
 	<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
 		<div class="carousel-inner justify-content-around  ">
 			<div class="container row">
+			{% if movies is empty %}
+			<div>Aucun film ne correspond à votre recherche</div>
+			{% else %}
 				{% for item in movies %}
 					<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
 						<div class="container d-flex justify-content-around ">
@@ -28,6 +31,7 @@
 						</div>
 					</div>
 				{% endfor %}
+			{% endif %}
 			</div>
 
 		</div>
