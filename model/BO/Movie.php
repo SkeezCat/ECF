@@ -59,5 +59,9 @@ class Movie {
     public function setRoles($roles) {
         $this->roles = $roles;
     }
+
+    public function addRole($role) {
+        array_push($this->roles, $role);
+    }
 }
 ?>

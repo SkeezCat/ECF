@@ -46,7 +46,7 @@ class ActorsDAO extends Dao {
         $query->execute(array(':name' => $name, ':surname' => $surname));
         $data = $query->fetch();
 
-        var_dump($query->fetch());
+        //var_dump($query->fetch());
 
         return $data ? $data['idActeur'] : false;
     }
