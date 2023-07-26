@@ -19,11 +19,15 @@ class ActorsDAO extends Dao {
     // Ajoute un acteur
     public function add($data)
     {
-        $values = ['name' => $data->getName(), 'surname' => $data->getSurname()];
-        $query = 'INSERT INTO acteurs (nom, prenom) VALUES (:name , :surname)';
-        $add = $this->BDD->prepare($query);
-
-        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id de l'acteur (voir singleton)
+        if (!$this->getId($data->getName(), $data->getSurname())) {
+            $values = ['name' => $data->getName(), 'surname' => $data->getSurname()];
+            $query = 'INSERT INTO acteurs (nom, prenom) VALUES (:name , :surname)';
+            $add = $this->BDD->prepare($query);
+    
+            return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id de l'acteur (voir singleton)
+        } else {
+            return $this->getId($data->getName(), $data->getSurname());
+        }
     }
 
     // Récupère un acteur par son id
@@ -41,6 +45,8 @@ class ActorsDAO extends Dao {
         $query = $this->BDD->prepare('SELECT * FROM acteurs WHERE nom = :name AND prenom = :surname');
         $query->execute(array(':name' => $name, ':surname' => $surname));
         $data = $query->fetch();
+
+        var_dump($query->fetch());
 
         return $data ? $data['idActeur'] : false;
     }

@@ -26,8 +26,20 @@ class MoviesDAO extends Dao {
 
         $query = 'INSERT INTO films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
         $add = $this->BDD->prepare($query);
+        $add->execute($values);
+        $movieId = $this->BDD->getLastId();
 
-        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
+        foreach ($data->getRoles() as $key => $value) {
+            $value->setMovieId($movieId); // Récupère l'ID du film créé lors de cette requête
+            $rolesDAO = new RolesDAO();
+
+            var_dump($value);
+            $rolesDAO->add($value);
+
+            
+        }
+
+        //return $add->execute($values); //? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
     public function getOne($id) {

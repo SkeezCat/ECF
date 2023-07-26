@@ -3,7 +3,7 @@ class Movie {
     private $movieId, $title, $director, $poster, $year;
     private $roles = array();
 
-    public function __construct(string $title, string $director, string $poster, int $year, int $movieId = null, $roles = null) {
+    public function __construct(string $title, string $director, string $poster, int $year, $roles = null, int $movieId = null) {
         $this->setMovieId($movieId);
         $this->setTitle($title);
         $this->setDirector($director);
