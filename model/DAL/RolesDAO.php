@@ -4,12 +4,15 @@ class RolesDAO extends Dao {
 
     // Récupère tous les films de la base de données
     public function getAll($search) {
-        $query = $this->BDD->prepare("SELECT * FROM roles");
+        $query = $this->BDD->prepare("SELECT * FROM roles WHERE idFilm = :search");
+        $query->bindValue(':search', $search);
         $query->execute();
+
+        $actorsDAO = new ActorsDAO();
         $roles = array();
 
         while ($data = $query->fetch()) {
-            $roles[] = new Role($data['personnage'], $data['idFilm'], $data['idActeur'], $data['idRole'], $data['test']);
+            $roles[] = new Role($data['personnage'], $actorsDAO->getOne($data['idActeur']), $data['idFilm'], $data['idRole'], $data['test']);
         }
 
         return $roles;

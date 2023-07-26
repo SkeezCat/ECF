@@ -4,7 +4,7 @@ $moviesDAO = new MoviesDAO();
 // Récupération des films de la base de données
 try {
     if (isset($_POST['search'])) {
-        $movies = $moviesDAO->getAll(strtolower($_POST['search']));
+        $movies = $moviesDAO->getAll($_POST['search']);
     }
     else {
         $movies = $moviesDAO->getAll("");

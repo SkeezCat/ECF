@@ -5,12 +5,14 @@ class ActorsDAO extends Dao {
     // Récupère tous les acteurs
     public function getAll($search)
     {
-        $query = $this->BDD->prepare("SELECT * FROM acteurs");
+        $query = $this->BDD->prepare("SELECT * FROM acteurs WHERE idActeur = :search");
+        $query->bindValue(':search', $search);
         $query->execute();
+
         $actors = array();
 
         while ($data = $query->fetch()) {
-            $actors[] = new Actor($data['nom'], $data['prenom'], $data['IdActeur']);
+            $actors[] = new Actor($data['nom'], $data['prenom'], $data['idActeur']);
         }
 
         return $actors;
@@ -36,7 +38,7 @@ class ActorsDAO extends Dao {
         $query = $this->BDD->prepare('SELECT * FROM acteurs WHERE idActeur = :id');
         $query->execute(array(':id' => $id));
         $data = $query->fetch();
-        $actor = new Actor($data['idActeur'], $data['nom'], $data['prenom']);
+        $actor = new Actor($data['nom'], $data['prenom'], $data['idActeur']);
         return $actor;
     }
 

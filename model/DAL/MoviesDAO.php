@@ -5,27 +5,25 @@ class MoviesDAO extends Dao {
     // Récupère tous les films de la base de données
     public function getAll($search) {
 
-        //$value = array(':search' => $search);
-        //var_dump($value);
-
         $query = $this->BDD->prepare("SELECT * FROM films WHERE LCASE(titre) LIKE :search");
 
-        // if(isset($_POST['search'])){
-        //     $values = ['search' => $search]; // TODO : A vérifier
-        //     $query = $this->BDD->prepare("SELECT * FROM films WHERE titre LIKE :search");
-        // } else {
         //     $query = $this->BDD->prepare("SELECT films.titre,films.idFilm, films.realisateur, films.affiche,films.annee, roles.personnage, acteurs.nom, acteurs.prenom 
         //         FROM films INNER JOIN roles ON films.idFilm = roles.idFilm INNER JOIN acteurs ON roles.idActeur = acteurs.idActeur ");
-        // }
-        $query->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
 
-        var_dump($query);
+        $query->bindValue(':search', '%' . strtolower($search) . '%', PDO::PARAM_STR);
         $query->execute();
 
         $movies = array();
 
         while ($data = $query->fetch()) {
-            $movies[] = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee'], $data['idFilm']);
+            $movies[] = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee'], null, $data['idFilm']);
+        }
+
+        foreach ($movies as $key => $value) {
+            $rolesDAO = new RolesDAO();
+            $value->setRoles($rolesDAO->getAll($value->getMovieId()));
+
+            //var_dump($value, '<br/>');
         }
 
         return $movies;

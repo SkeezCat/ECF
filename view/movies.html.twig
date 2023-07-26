@@ -26,10 +26,15 @@
 										par
 										{{item.getDirector}}
 										avec
-										{{item.Actor.getName}}
-										{{item.Actor.getSurname}}
-										dans le role de
-										{{item.Role.getCharacter}}</p>
+										{% for roles in item.getRoles %}
+											<p>
+											{{roles.getActor.getSurname}}
+											{{roles.getActor.getName}}
+											dans le rôle de
+											{{roles.getCharacter}}
+											</p>
+										{% endfor %}
+									</p>
 								</p>
 							</div>
 						</div>
