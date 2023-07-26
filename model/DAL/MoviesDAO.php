@@ -4,7 +4,12 @@ class MoviesDAO extends Dao {
 
     // Récupère tous les films de la base de données
     public function getAll($search) {
-        $query = $this->BDD->prepare("SELECT * FROM films WHERE titre LIKE '%$search%'");
+
+        if(isset($_POST['search'])){
+            $query = $this->BDD->prepare("SELECT * FROM films WHERE titre LIKE '%$search%'");
+        } else {
+            $query = $this->BDD->prepare("SELECT films.titre,films.idFilm, films.realisateur, films.affiche,films.annee, roles.personnage, acteurs.nom, acteurs.prenom FROM films INNER JOIN roles ON films.idFilm = roles.idFilm INNER JOIN acteurs ON roles.idActeur = acteurs.idActeur ");
+        }
         $query->execute();
         $movies = array();
 
