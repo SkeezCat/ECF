@@ -7,39 +7,36 @@
 	<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
 		<div class="carousel-inner justify-content-around  ">
 			<div class="container row">
-			{% if movies is empty %}
-			<div>Aucun film ne correspond à votre recherche</div>
-			{% else %}
-				{% for item in movies %}
-					<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
-						<div class="container d-flex justify-content-around ">
-							<div class="container">
-								<img src="{{item.getPoster}}" class="col-5 w-20 p-3 mb-5 shadow  rounded " alt="poster de film">
-							</div>
-							<div class="col-md-4 ms-auto">
-								<h3>
-									{{item.getMovieId}}-
-									{{item.getTitle}}</h3>
-								<p>
-									Réalisé en
-									{{item.getYear}}
-									par
-									{{item.getDirector}}
-									{% for item in movies %}
+				{% if movies is empty %}
+					<div>Aucun film ne correspond à votre recherche</div>
+				{% else %}
+					{% for item in movies %}
+						<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
+							<div class="container d-flex justify-content-around ">
+								<div class="container">
+									<img src="{{item.getPoster}}" class="col-5 w-20 p-3 mb-5 shadow  rounded " alt="poster de film">
+								</div>
+								<div class="col-md-4 ms-auto">
+									<h3>
+										{{item.getMovieId}}-
+										{{item.getTitle}}</h3>
+									<p>
+										Réalisé en
+										{{item.getYear}}
+										par
+										{{item.getDirector}}
 										avec
-										{{item.getActor}}
+										{{item.Actor.getName}}
+										{{item.Actor.getSurname}}
 										dans le role de
-										{{item.getRoles}}
-									{% endfor %}
+										{{item.Role.getCharacter}}</p>
 								</p>
-
 							</div>
 						</div>
 					</div>
 				{% endfor %}
 			{% endif %}
-			</div>
-
 		</div>
+
 	</div>
-</div>
+</div></div>
