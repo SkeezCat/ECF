@@ -7,9 +7,6 @@ class MoviesDAO extends Dao {
 
         $query = $this->BDD->prepare("SELECT * FROM films WHERE LCASE(titre) LIKE :search");
 
-        //     $query = $this->BDD->prepare("SELECT films.titre,films.idFilm, films.realisateur, films.affiche,films.annee, roles.personnage, acteurs.nom, acteurs.prenom 
-        //         FROM films INNER JOIN roles ON films.idFilm = roles.idFilm INNER JOIN acteurs ON roles.idActeur = acteurs.idActeur ");
-
         $query->bindValue(':search', '%' . strtolower($search) . '%', PDO::PARAM_STR);
         $query->execute();
 
@@ -22,8 +19,6 @@ class MoviesDAO extends Dao {
         foreach ($movies as $key => $value) {
             $rolesDAO = new RolesDAO();
             $value->setRoles($rolesDAO->getAll($value->getMovieId()));
-
-            //var_dump($value, '<br/>');
         }
 
         return $movies;
@@ -38,7 +33,7 @@ class MoviesDAO extends Dao {
             'year' => $data->getYear()
         ];
 
-        $query = 'INSERT INTO films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
+        $query = 'INSERT INTO  films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
         $add = $this->BDD->prepare($query);
         $add->execute($values);
 

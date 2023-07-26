@@ -1,17 +1,26 @@
 <?php
 $moviesDAO = new MoviesDAO();
+$message = "";
 
 // Crée le film et les rôles
-if (isset($_POST['title'])) {
-    $roles = Array('','','');
-
-    for ($i=0; $i < count($roles); $i++) {
-        $roles[$i] = new Role($_POST['character' . $i + 1], new Actor($_POST['name'. $i + 1], $_POST['surname' . $i + 1]));
+try {
+    if (isset($_POST['title'])) {
+        $roles = Array('','','');
+    
+        for ($i=0; $i < count($roles); $i++) {
+            $roles[$i] = new Role($_POST['character' . $i + 1], new Actor($_POST['name'. $i + 1], $_POST['surname' . $i + 1]));
+        }
+    
+        $moviesDAO->add(new Movie($_POST['title'], $_POST['director'], $_POST['poster'], $_POST['year'], $roles));
+    
+        $message = "Votre film a bien été ajouté à la base de données";
     }
-
-    $moviesDAO->add(new Movie($_POST['title'], $_POST['director'], $_POST['poster'], $_POST['year'], $roles));
+} catch (Exception $e) {
+    $message = "Votre film n'a pas pu être ajouté à la base de données";
 }
 
 // Affichage du template Create_Movie
-echo $twig->render('create_movie.html.twig');
+echo $twig->render('create_movie.html.twig', [
+    'message' => $message
+]);
 ?>
