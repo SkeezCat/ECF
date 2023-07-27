@@ -1,14 +1,9 @@
 <?php
-<<<<<<< HEAD
-class UsersDAO extends Dao {
-
-
-=======
 
 class UsersDAO extends Dao 
 {
     // Récupère tous les utilisateurs
-    public function getAll()
+    public function getAll($search)
     {
         $query = $this->BDD->prepare('SELECT * FROM users');
         $query->execute();
@@ -55,6 +50,14 @@ class UsersDAO extends Dao
         return $user;
     }
 
+    // Ajouter un utilisateur
+    public function add($data)
+    {
+        $values = ['email' => $data->getEmail(), 'username' => $data->getUsername(), 'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
+        $query = $this->BDD->prepare('INSERT INTO users (email, userName, password) VALUES (:email, :username, :password)');
+        return $query->execute($values);
+    }
+
     //Modifier un utilisateur
     public function update($user) 
     {
@@ -74,6 +77,5 @@ class UsersDAO extends Dao
         $query = $this->BDD->prepare('DELETE FROM users WHERE users.email = :email_user');
         $query->execute(array(':email_user' => $email));
     }
->>>>>>> 290b4067e17317287f6b4e8e1eb9dcf60c0937a5
 }
 ?>
