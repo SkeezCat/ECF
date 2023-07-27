@@ -5,16 +5,20 @@ class MoviesDAO extends Dao {
     // Récupère tous les films de la base de données
     public function getAll($search) {
 
-        if(isset($_POST['search'])){
-            $query = $this->BDD->prepare("SELECT * FROM films WHERE titre LIKE '%$search%'");
-        } else {
-            $query = $this->BDD->prepare("SELECT films.titre,films.idFilm, films.realisateur, films.affiche,films.annee, roles.personnage, acteurs.nom, acteurs.prenom FROM films INNER JOIN roles ON films.idFilm = roles.idFilm INNER JOIN acteurs ON roles.idActeur = acteurs.idActeur ");
-        }
+        $query = $this->BDD->prepare("SELECT * FROM films WHERE LCASE(titre) LIKE :search");
+
+        $query->bindValue(':search', '%' . strtolower($search) . '%', PDO::PARAM_STR);
         $query->execute();
+
         $movies = array();
 
         while ($data = $query->fetch()) {
-            $movies[] = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee'], $data['idFilm']);
+            $movies[] = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee'], null, $data['idFilm']);
+        }
+
+        foreach ($movies as $key => $value) {
+            $rolesDAO = new RolesDAO();
+            $value->setRoles($rolesDAO->getAll($value->getMovieId()));
         }
 
         return $movies;
@@ -29,10 +33,20 @@ class MoviesDAO extends Dao {
             'year' => $data->getYear()
         ];
 
-        $query = 'INSERT INTO films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
+        $query = 'INSERT INTO  films (titre, realisateur, affiche, annee) VALUES (:title, :director, :poster, :year)';
         $add = $this->BDD->prepare($query);
+        $add->execute($values);
 
-        return $add->execute($values) ? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
+        $movieId = $this->BDD->getLastId();
+
+        foreach ($data->getRoles() as $key => $value) {
+            $value->setMovieId($movieId); // Récupère l'ID du film créé lors de cette requête
+            $rolesDAO = new RolesDAO();
+
+            $rolesDAO->add($value);
+        }
+
+        //return $add->execute($values); //? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
     public function getOne($id) {

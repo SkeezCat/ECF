@@ -1,21 +1,21 @@
 <?php 
 class Role {
-    private $character, $movieId, $actorId, $roleId, $test;
+    private $character, $movieId, $actor, $roleId, $test;
 
-    public function __construct(string $character, int $movieId, int $actorId, int $roleId = null, int $test = null) {
+    public function __construct(string $character, Actor $actor, int $movieId = null, int $roleId = null, int $test = null) {
         $this->setCharacter($character);
         $this->setMovieId($movieId);
-        $this->setActorId($actorId);
+        $this->setActor($actor);
         $this->setroleId($roleId);
         $this->setTest($test);
     }
 
-    public function getActorId() {
-        return $this->actorId;
+    public function getActor() {
+        return $this->actor;
     }
 
-    public function setActorId($actorId) {
-        $this->actorId = $actorId;
+    public function setActor($actor) {
+        $this->actor = $actor;
     }
 
     public function getMovieId() {
@@ -52,7 +52,7 @@ class Role {
 
     public function __toString() {
         $format = '%s, %s : %s';
-        return sprintf($format, $this->getActorId(), $this->getMovieId(), $this->getCharacter());    
+        return sprintf($format, $this->getActor()->getName(), $this->getMovieId(), $this->getCharacter());    
     }
 }
 ?>

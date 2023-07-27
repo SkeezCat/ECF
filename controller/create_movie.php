@@ -1,37 +1,26 @@
 <?php
-
-// TODO : Gérer la création de film dans MoviesDAO
 $moviesDAO = new MoviesDAO();
-$rolesDAO = new RolesDAO();
-$actorsDAO = new ActorsDAO();
+$message = "";
 
-$movie;
-$roles = Array('','','');
-
-if (isset($_POST['title'])) {
-
-    // Récupère les données du formulaire et ajoute le film dans la base de données
-    $movie = new Movie($_POST['title'], $_POST['director'], $_POST['poster'], $_POST['year']);
-    $movieId = intval($moviesDAO->add($movie));
-
-    // Ajoute les rôles et les acteurs dans la base de données
-    for ($i=0; $i < count($roles); $i++) {
-
-        // Récupère ou crée l'acteur et son identifiant depuis la base de données
-        $actorId = intval($actorsDAO->getId($_POST['name'. ($i + 1)], $_POST['surname' . ($i + 1)]));
-
-        if (!$actorId) {
-            $actorId = intval($actorsDAO->add(new Actor($_POST['name'. ($i + 1)], $_POST['surname' . ($i + 1)])));
+// Crée le film et les rôles
+try {
+    if (isset($_POST['title'])) {
+        $roles = Array('','','');
+    
+        for ($i=0; $i < count($roles); $i++) {
+            $roles[$i] = new Role($_POST['character' . $i + 1], new Actor($_POST['name'. $i + 1], $_POST['surname' . $i + 1]));
         }
-
-        // Récupère les données du rôle du formulaire et ajoute le rôle dans la base de données
-        $roles[$i] = new Role($_POST['character' . $i + 1], $movieId, $actorId);
-
-        // Ajoute le rôle dans la base de données
-        $rolesDAO->add($roles[$i]);
+    
+        $moviesDAO->add(new Movie($_POST['title'], $_POST['director'], $_POST['poster'], $_POST['year'], $roles));
+    
+        $message = "Votre film a bien été ajouté à la base de données";
     }
+} catch (Exception $e) {
+    $message = "Votre film n'a pas pu être ajouté à la base de données";
 }
 
 // Affichage du template Create_Movie
-echo $twig->render('create_movie.html.twig');
+echo $twig->render('create_movie.html.twig', [
+    'message' => $message
+]);
 ?>
