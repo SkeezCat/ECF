@@ -15,16 +15,7 @@ class UsersDAO extends Dao {
         return $users;
     }
 
-     // Ajoute un utilisateur
-     public function add($user)
-    {
-        $valeurs = ['email' => $user->getEmail(), $user->getUsername(), 'password' => $user->getPassword()];
-        $requete = 'INSERT INTO users (email, username, password) VALUES (:email , :username, :password)';
-        $insert = $this->BDD->prepare($requete);
-        return $insert ->execute($valeurs)? $this->BDD->lastInsertId(): false;
-    }
-
-    // Vérifie un utilisateur
+   // Vérifie un utilisateur
     public function verifOne($user)
     {
         $query = $this->BDD->prepare('SELECT * FROM users WHERE email = :email/* AND password = :password*/');
