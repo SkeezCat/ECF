@@ -21,11 +21,7 @@ class UsersDAO extends Dao {
         $valeurs = ['email' => $user->getEmail(), $user->getUsername(), 'password' => $user->getPassword()];
         $requete = 'INSERT INTO users (email, username, password) VALUES (:email , :username, :password)';
         $insert = $this->BDD->prepare($requete);
-        if (!$insert->execute($valeurs)) {
-            return false;
-        } else {
-            return true;
-        }
+        return $insert ->execute($valeurs)? $this->BDD->lastInsertId(): false;
     }
 
     // Vérifie un utilisateur
