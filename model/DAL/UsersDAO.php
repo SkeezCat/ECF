@@ -1,6 +1,6 @@
 <?php
 
-class UsersDAO extends Dao{
+class UsersDAO extends Dao {
     // Récupère tous les utilisateurs
     public function getAll($search)
     {
@@ -60,6 +60,14 @@ class UsersDAO extends Dao{
         $data = $query->fetch();
         $user = new User($data['email'], $data['username'], $data['password']);
         return $user;
+    }
+
+    // Ajouter un utilisateur
+    public function add($data)
+    {
+        $values = ['email' => $data->getEmail(), 'username' => $data->getUsername(), 'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
+        $query = $this->BDD->prepare('INSERT INTO users (email, userName, password) VALUES (:email, :username, :password)');
+        return $query->execute($values);
     }
 
     //Modifier un utilisateur
