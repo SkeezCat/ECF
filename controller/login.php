@@ -8,7 +8,8 @@ if (isset($_POST['email'])) {
     $user = $usersDao->verifOne(new User($_POST['email'], $_POST['password']));
     
     if ($user != false) {
-        $_SESSION['user'] = $user->getEmail();
+        $_SESSION['user'] = $user->getUsername();
+        header('Location: movies');
     }
 }
 
