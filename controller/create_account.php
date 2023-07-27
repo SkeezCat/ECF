@@ -12,6 +12,9 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
     } elseif(empty($_POST["email"])){
         $message = "Le champs Email est vide.";
 
+    } elseif (!preg_match('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i', $_POST["email"])) {
+        $message = "L'E-mail n'est pas au bon format.";
+
     } elseif(strlen($_POST["username"]>25)){
         $message = "Le Username est trop long, il dépasse les 25 caractères.";
 
