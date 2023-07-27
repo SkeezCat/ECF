@@ -6,6 +6,7 @@ class User {
         $this->setEmail($email);
         $this->setUsername($username);
         $this->setPassword($password);
+        $this->setIdUser($idUser);
     }
 
     public function getEmail() {
@@ -38,6 +39,5 @@ class User {
     public function setIdUser($idUser){
         $this->idUser = $idUser;
     }
-
 }
 ?>
