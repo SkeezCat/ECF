@@ -1,47 +1,50 @@
 {# Carrousel contenant la liste des films #}
-<h1 class="text-center">
-	La présentation de tout nos films</h1>
+<h1 class="text-center p-3">
+	La présentation de tous nos films</h1>
 <div class="container   ">
-
-
 	<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
 		<div class="carousel-inner justify-content-around  ">
 			<div class="container row">
 				{% if movies is empty %}
-					<div>Aucun film ne correspond à votre recherche</div>
+					<div class="text-center pt-3">Aucun film ne correspond à votre recherche</div>
 				{% else %}
 					{% for item in movies %}
-						<div class="carousel-item grid {{ loop.first ?  'active' : '' }}  " data-bs-interval="4000">
-							<div class="container d-flex justify-content-around ">
+						<div class="carousel-item grid {{ loop.first ? 'active' : '' }}" data-bs-interval="4000">
+							<div class="container d-flex">
 								<div class="container">
-									<img src="{{item.getPoster}}" class="col-5 w-20 p-3 mb-5 shadow rounded " alt="poster de film">
+									<img src="{{item.getPoster}}" class="col-8 w-10 mb-5 shadow bg-body-tertiary rounded" alt="poster de film">
 								</div>
-								<div class="col-md-4 ms-auto">
-									<h3>
-										{{item.getMovieId}}-
-										{{item.getTitle}}</h3>
+								<div class="col-5 ms-auto">
+									<h3 class="py-3">
+										{{item.getMovieId}} - {{item.getTitle}}
+									</h3>
 									<p>
 										Réalisé en
-										{{item.getYear}}
+											<span class="fw-bold">
+												{{item.getYear}}
+											</span>
 										par
-										{{item.getDirector}}
-										avec
-										{% for roles in item.getRoles %}
-											<p>
-											{{roles.getActor.getSurname}}
-											{{roles.getActor.getName}}
+											<span class="fw-bold">
+												{{item.getDirector}}
+											</span>
+										avec <br>
+											{% for roles in item.getRoles %}
+												<span class="fst-italic text-decoration-underline">
+													{{roles.getActor.getSurname}}
+													{{roles.getActor.getName}}
+												</span>
 											dans le rôle de
-											{{roles.getCharacter}}
-											</p>
-										{% endfor %}
+												<span class="fw-bold">
+												{{roles.getCharacter}}
+												</span><br>
+											{% endfor %}
 									</p>
-								</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
-			{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
 		</div>
-
 	</div>
-</div></div>
+</div>

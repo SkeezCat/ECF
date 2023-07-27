@@ -46,11 +46,16 @@ class MoviesDAO extends Dao {
             $rolesDAO->add($value);
         }
 
-        //return $add->execute($values); //? $this->BDD->getLastId() : false; // Si la requête est un succès, retourne l'id du film (voir singleton)
+        return $this->getOne($movieId); // Si la requête est un succès, retourne l'id du film (voir singleton)
     }
 
     public function getOne($id) {
-    
+        $query = $this->BDD->prepare('SELECT * FROM films WHERE idFilm = :id');
+        $query->execute(array(':id' => $id));
+        $data = $query->fetch();
+        $movie = new Movie($data['titre'], $data['realisateur'], $data['affiche'], $data['annee']);
+
+        return $movie;
     }
 
     public function getOneByTitle($title) {
