@@ -2,7 +2,7 @@
 class User {
     private $email, $username, $password;
 
-    public function __construct(string $email, string $username, string $password) {
+    public function __construct(string $email, string $password, string $username = null) {
         $this->setEmail($email);
         $this->setUsername($username);
         $this->setPassword($password);
