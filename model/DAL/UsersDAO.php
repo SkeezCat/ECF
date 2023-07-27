@@ -2,7 +2,7 @@
 
 class UsersDAO extends Dao{
     // Récupère tous les utilisateurs
-    public function getAll()
+    public function getAll($search)
     {
         $query = $this->BDD->prepare('SELECT * FROM users');
         $query->execute();
