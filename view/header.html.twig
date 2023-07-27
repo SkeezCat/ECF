@@ -22,13 +22,18 @@
 							<li class="nav-item">
 								<a class="nav-link" aria-current="page" href="movies">Films</a>
 							</li>
+							{% if session.user is defined %}
 							<li class="nav-item">
 								<a class="nav-link" href="create_movie">Création</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="login">Compte</a>
-								{#Compte disparaitra quand on est connecté, laissera place à créations et logout #}
+								<a class="nav-link" href="logout">Déconnexion</a>
 							</li>
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="create_account">Compte</a>
+							</li>
+							{% endif %}
 						</ul>
 
 						<form class="d-flex" method="post" action="movies">
