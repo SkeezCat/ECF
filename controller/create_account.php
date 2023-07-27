@@ -1,5 +1,8 @@
 <?php 
+$usersDAO = new UsersDAO();
 $message = "";
+$user;
+
 
 // Affichage du template Create_Account
 if (isset($_POST["username"]) && isset($_POST["password"])){
@@ -26,6 +29,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
     
 } else {
     $message = "Votre compte a bien été créé.";
+    $user = $usersDAO ->add(new User($_POST["email"],$_POST["username"],$_POST["password"]));
 }
 
 
