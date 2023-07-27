@@ -22,10 +22,17 @@
 							<li class="nav-item">
 								<a class="nav-link" aria-current="page" href="movies">Films</a>
 							</li>
-							{% if true %} {# remplacer par : if session.user is defined #}
+							{% if session.user is defined %} {# remplacer par : if session.user is defined #}
 							<li class="nav-item">
 								<a class="nav-link" href="create_movie">Création</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="create_account">Créer un Compte</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="login">Se Connecter</a>
+							</li>
+							
 							<li class="nav-item">
 								<a class="nav-link" href="logout">Déconnexion</a>
 							</li>
