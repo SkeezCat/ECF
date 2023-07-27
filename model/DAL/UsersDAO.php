@@ -18,15 +18,26 @@ class UsersDAO extends Dao {
      // Ajoute un utilisateur
      public function add($user)
     {
-        $valeurs = ['email' => $user->getEmail(), $user->getUsername(), 'password' => $user->getPassword()];
-        $requete = 'INSERT INTO users (email, username, password) VALUES (:email , :username, :password)';
+        $values = ['email' => $user->getEmail(), 'username' => $user->getUsername(), 'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT)];
+        $requete = 'INSERT INTO users (email, userName, password) VALUES (:email , :username, :password)';
         $insert = $this->BDD->prepare($requete);
-        if (!$insert->execute($valeurs)) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return $insert->execute($values) ? $values['username'] : false;
+        // if (!$insert->execute($valeurs)) {
+        //     return false;
+        // } else {
+        //     return true;
+        // }
     }
+
+        // // Ajouter un utilisateur
+        // public function add($data)
+        // {
+        //     $values = ['email' => $data->getEmail(), 'username' => $data->getUsername(), 'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
+        //     $query = $this->BDD->prepare('INSERT INTO users (email, userName, password) VALUES (:email, :username, :password)');
+        //     return $query->execute($values);
+        // }
+    
 
     // Vérifie un utilisateur
     public function verifOne($user)
@@ -60,14 +71,6 @@ class UsersDAO extends Dao {
         $data = $query->fetch();
         $user = new User($data['email'], $data['username'], $data['password']);
         return $user;
-    }
-
-    // Ajouter un utilisateur
-    public function add($data)
-    {
-        $values = ['email' => $data->getEmail(), 'username' => $data->getUsername(), 'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
-        $query = $this->BDD->prepare('INSERT INTO users (email, userName, password) VALUES (:email, :username, :password)');
-        return $query->execute($values);
     }
 
     //Modifier un utilisateur
