@@ -1,7 +1,6 @@
 <?php
 
-class UsersDAO extends Dao 
-{
+class UsersDAO extends Dao{
     // Récupère tous les utilisateurs
     public function getAll()
     {
