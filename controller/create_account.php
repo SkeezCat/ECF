@@ -31,7 +31,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
 echo $twig->render('create_account.html.twig', [
     'message' => $message,
-    'user' => $user
+    // 'user' => $user
 ]);
-var_dump($user)
+// var_dump($user)
 ?>
