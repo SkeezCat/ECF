@@ -9,6 +9,7 @@ if (isset($_POST['email'])) {
     
     if ($user != false) {
         $_SESSION['user'] = $user->getUsername();
+        header('Location: movies');
     }
 }
 
