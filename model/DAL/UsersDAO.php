@@ -25,11 +25,12 @@ class UsersDAO extends Dao {
     if (!$data || !password_verify($user->getPassword(), $data['password'])) {
         return false;
 
-    } else {
-        $user = new User($data['email'], $data['password'], $data['username']);
-        return $user;
+        } else {
+            $user = new User($data['email'], $data['password'], $data['username']);
+            return $user;
+        }
     }
-}
+    
 
 // Récupère un utilisateur
 public function getOne($email)
@@ -48,7 +49,9 @@ public function add($data)
     $values = [
         'email' => $data->getEmail(), 
         'username' => $data->getUsername(), 
-        'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
+        'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)
+    ];
+
     return $query->execute($values);
 }
 
@@ -58,18 +61,18 @@ public function update($user)
     $valeurs = ['email' => $user->getEmail(), 'username' => $user->getUsername(), 'password' => $user->getPassword()];
     $query = 'UPDATE users SET email = :email, password = :password WHERE id = :id';
     $update = $this->BDD->prepare($query);
+
     if (!$update->execute($valeurs)) {
         return false;
     } else {
         return true;
     }
 }
-
-// Supprime un utilisateur
-public function delete($email)
-{
-    $query = $this->BDD->prepare('DELETE FROM users WHERE users.email = :email_user');
-    $query->execute(array(':email_user' => $email));
-}
+    // Supprime un utilisateur
+    public function delete($email)
+    {
+        $query = $this->BDD->prepare('DELETE FROM users WHERE users.email = :email_user');
+        $query->execute(array(':email_user' => $email));
+    }
 }
 ?>
