@@ -18,24 +18,16 @@ class UsersDAO extends Dao {
     // Vérifie un utilisateur
     public function verifOne($user)
     {
-        $query = $this->BDD->prepare('SELECT * FROM users WHERE email = :email/* AND password = :password*/');
-    $query->execute(array(':email' => $user->getEmail()/*, ':password' => $this->verifPassword($user->getPassword(), 'password')*/));
-    $data = $query->fetch();
-    if (!$data || !$this->verifPassword($user->getPassword(), $data['password'])) {
+        $query = $this->BDD->prepare('SELECT * FROM users WHERE email = :email');
+        $query->execute(array(':email' => $user->getEmail()));
+        $data = $query->fetch();
+        
+    if (!$data || !password_verify($user->getPassword(), $data['password'])) {
         return false;
 
     } else {
         $user = new User($data['email'], $data['password'], $data['username']);
         return $user;
-    }
-}
-
-// Vérifie la correspondance du mot de passe saisi avec la base de données
-private function verifPassword($password, $hashedPassword) {
-    if (password_verify($password, $hashedPassword)) {
-        return $password;
-    } else {
-        return false;
     }
 }
 
@@ -52,8 +44,11 @@ public function getOne($email)
 // Ajouter un utilisateur
 public function add($data)
 {
-    $values = ['email' => $data->getEmail(), 'username' => $data->getUsername(), 'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
     $query = $this->BDD->prepare('INSERT INTO users (email, password, username) VALUES (:email, :password, :username)');
+    $values = [
+        'email' => $data->getEmail(), 
+        'username' => $data->getUsername(), 
+        'password' => password_hash($data->getPassword(), PASSWORD_DEFAULT)];
     return $query->execute($values);
 }
 
