@@ -29,7 +29,7 @@ if (!preg_match('#^[a-zA-Z0-9]+$#', $_POST["username"])) {
 }
 echo $twig->render('create_account.html.twig', [
     'message' => $message,
-    'user' => $user
+    // 'user' => $user
 ]);
-var_dump($user)
+// var_dump($user)
 ?>
